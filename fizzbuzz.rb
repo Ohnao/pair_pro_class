@@ -1,7 +1,7 @@
 (1..100).each do |num|
 	if num % 3 == 0 \
 		&& num % 5 == 0
-		puts "FizaaBuzz"
+		puts "FizzBuzz"
 	elsif num % 5 == 0
 		puts "Buzz"
 	elsif num % 3 == 0
