@@ -1,5 +1,5 @@
-x_max = ARGV[1]
-y_max = ARGV[0]
+x_max = ARGV[0]
+y_max = ARGV[1]
 
 if !x_max || !y_max
   puts "引数を指定してください"
