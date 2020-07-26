@@ -3,7 +3,7 @@ STDIN.each do |line|
     line.chomp!
     count = name_count[line] ||  0
 
-    p name_count[line] = count + 1
+    name_count[line] = count + 1
 end
 
 p name_count
