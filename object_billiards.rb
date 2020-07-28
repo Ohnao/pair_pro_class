@@ -77,7 +77,55 @@ class BilliardTable
 
 	def print_status
 		puts "#{@ball.step}, (#{@ball.x}, #{@ball.y})"
-  end
+	end
+	
+	def print_status_2
+		status = {
+			"step" => @ball.step,
+			"x" => @ball.x,
+			"y" => @ball.y
+		}
+	end
+
+	def cue_2
+		if block_given?
+			puts "blockがあります"
+		else
+			puts "blockを指定してください"
+			return
+		end
+
+		yield status
+
+		loop do
+			@ball.move
+
+			yield status
+
+			if @ball.goal?(@length_x, @length_y)
+				puts "GOAL!!"
+				break
+			elsif @ball.boundary_x?(@length_x)
+				@ball.reflect_x
+			elsif @ball.boundary_y?(@length_y)
+				@ball.reflect_y
+			end
+		end
+	end
+
+	def status
+		{
+			"step" => @ball.step,
+			"x" => @ball.x,
+			"y" => @ball.y
+		}
+	end
+end
+
+class MyBilliardTable < BilliardTable
+	def print_status
+		puts "step = #{@ball.step}, x = #{@ball.x}, y = #{@ball.y}"
+	end
 end
 
 x_max = ARGV[0]
@@ -91,14 +139,18 @@ end
 x_max =  x_max.to_i
 y_max =  y_max.to_i
 
-#ball = Ball.new()
-#
-#bt = BilliardTable.new(length_x: x_max, length_y: y_max, ball: ball)
-#
-#bt.cue
+ball = Ball.new()
 
-(6..16).each do |times|
-	puts "3 x #{times}のビリヤード台で、実行します"
-	bt = BilliardTable.new(length_x: 3, length_y: times, ball: Ball.new)
-	bt.cue
-end
+bt = BilliardTable.new(length_x: x_max, length_y: y_max, ball: ball)
+
+bt.cue_2
+
+#bt.cue_2 do |status|
+#	puts "ステップ数は#{status["step"]}でx座標は#{status["x"]}、y座標は#{status["y"]}です"
+#end
+
+#(6..16).each do |times|
+#	puts "3 x #{times}のビリヤード台で、実行します"
+#	bt = MyBilliardTable.new(length_x: 3, length_y: times, ball: Ball.new)
+#	bt.cue
+#end
