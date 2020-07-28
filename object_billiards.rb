@@ -51,8 +51,8 @@ x_max = ARGV[0]
 y_max = ARGV[1]
 
 if !x_max || !y_max
-  puts "引数を指定してください"
-  exit 1
+	puts "引数を指定してください"
+	exit 1
 end
 
 x_max =  x_max.to_i
@@ -72,5 +72,5 @@ loop do
 		ball.reflect_x
 	elsif ball.boundary_y?(y_max)
 		ball.reflect_y
-  end
+	end
 end
