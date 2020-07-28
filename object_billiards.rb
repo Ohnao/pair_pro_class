@@ -1,7 +1,7 @@
 class Ball
 	attr_accessor :x, :y, :x_way, :y_way, :step
 
-	def initialize(x: 1, y: 1, x_way: 1, y_way: 1, step: 0)
+	def initialize(x: 1, y: 1, x_way: 1, y_way: 1, step: 1)
 		@x = x
 		@y = y
 		@x_way = x_way
@@ -47,6 +47,39 @@ class Ball
 	end
 end
 
+class BilliardTable
+	attr_accessor :length_x, :length_y, :ball
+
+	def initialize(length_x: nil, length_y: nil, ball: nil)
+		@length_x = length_x
+		@length_y = length_y
+		@ball = ball
+	end
+
+	def cue
+		print_status
+
+		loop do
+			@ball.move
+
+			print_status
+		
+			if @ball.goal?(@length_x, @length_y)
+				puts "GOAL!!"
+				break
+			elsif @ball.boundary_x?(@length_x)
+				@ball.reflect_x
+			elsif @ball.boundary_y?(@length_y)
+				@ball.reflect_y
+			end
+		end
+	end
+
+	def print_status
+		puts "#{@ball.step}, (#{@ball.x}, #{@ball.y})"
+  end
+end
+
 x_max = ARGV[0]
 y_max = ARGV[1]
 
@@ -58,19 +91,14 @@ end
 x_max =  x_max.to_i
 y_max =  y_max.to_i
 
-ball = Ball.new()
+#ball = Ball.new()
+#
+#bt = BilliardTable.new(length_x: x_max, length_y: y_max, ball: ball)
+#
+#bt.cue
 
-loop do
-	ball.move
-	
-	puts "#{ball.step}, (#{ball.x}, #{ball.y})"
-
-	if ball.goal?(x_max, y_max)
-		puts "GOAL!!"
-		break
-	elsif ball.boundary_x?(x_max)
-		ball.reflect_x
-	elsif ball.boundary_y?(y_max)
-		ball.reflect_y
-	end
+(6..16).each do |times|
+	puts "3 x #{times}のビリヤード台で、実行します"
+	bt = BilliardTable.new(length_x: 3, length_y: times, ball: Ball.new)
+	bt.cue
 end
