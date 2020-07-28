@@ -24,3 +24,8 @@ access_hash = {
   p matome_hash
   
   p matome_hash["Joutarou"]["ruikei"]
+
+  matome_hash.keys.sort.each do |name|
+    value = matome_hash[name]["access"]
+    puts "#{name}が#{value}です"
+  end
