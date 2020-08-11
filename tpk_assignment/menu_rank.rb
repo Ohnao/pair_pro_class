@@ -1,11 +1,11 @@
 menu = {}
+menu.default = 0
 STDIN.each do |line|
 	line.chomp!
   line.gsub!(/\d+\/\d+\/\d+\t/, '')
 	line.gsub!(/〜.*/, '')
 
-	count = menu[line] || 0
-	menu[line] = count + 1
+	menu[line] += 1
 end
 
 count = 1
