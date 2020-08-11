@@ -31,7 +31,6 @@ ranking_menu.keys.each do |menu_name|
 	if value != pre_value[pre_count]
 		ranking_count += stopping_count
 		puts "#{ranking_count}位 #{menu_name} #{value}件"
-		ranking_count += 1
 		stopping_count = 0
 		pre_count += 1
 	end
