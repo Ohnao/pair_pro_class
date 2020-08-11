@@ -18,7 +18,8 @@ end
 #	menu[line] += 1
 #end
 
-ranking_count = 1
+rank = 1
+#順位の増分をストップした回数
 stopping_count = 0
 history_times = []
 pre_count = 0
@@ -29,14 +30,14 @@ ranking_menu.keys.each do |menu_name|
 	history_times.push times
 
 	if times != history_times[pre_count]
-		ranking_count += stopping_count
-		puts "#{ranking_count}位 #{menu_name} #{times}件"
+		rank += stopping_count
+		puts "#{rank}位 #{menu_name} #{times}件"
 		stopping_count = 0
 		pre_count += 1
 	end
 
 	if times == history_times[pre_count]
-		puts "#{ranking_count}位 #{menu_name} #{times}件"
+		puts "#{rank}位 #{menu_name} #{times}件"
 		stopping_count += 1
 	end
 end
