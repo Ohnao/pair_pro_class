@@ -20,23 +20,23 @@ end
 
 ranking_count = 1
 stopping_count = 0
-pre_value = []
+history_times = []
 pre_count = 0
 ranking_menu = menu.sort_by { |k, v| -v }.to_h
 
 ranking_menu.keys.each do |menu_name|
-	value = ranking_menu[menu_name]
-	pre_value.push value
+	times = ranking_menu[menu_name]
+	history_times.push times
 
-	if value != pre_value[pre_count]
+	if times != history_times[pre_count]
 		ranking_count += stopping_count
-		puts "#{ranking_count}位 #{menu_name} #{value}件"
+		puts "#{ranking_count}位 #{menu_name} #{times}件"
 		stopping_count = 0
 		pre_count += 1
 	end
 
-	if value == pre_value[pre_count]
-		puts "#{ranking_count}位 #{menu_name} #{value}件"
+	if times == history_times[pre_count]
+		puts "#{ranking_count}位 #{menu_name} #{times}件"
 		stopping_count += 1
 	end
 end
