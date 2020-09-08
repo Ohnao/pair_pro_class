@@ -1,37 +1,48 @@
 class Student
-  attr_accessor :id, :name, :english, :mathematics, :science, :sciety, :japanese
+  attr_accessor :id, :name, :english, :mathematics, :science, :society, :japanese
+
+  @@student_of = {} # クラス変数、クラスが読み込まれた時に初期化されるもの
+  STDIN.each do |line|
+    (id, name, english, mathematics, science, society, japanese) = *line.split("\t")
+    @@student_of[id] = {
+      "name" => name,
+      "english" => english.to_i,
+      "mathematics" => mathematics.to_i,
+      "science" => science.to_i,
+      "society" => society.to_i,
+      "japanese" => japanese.to_i
+    }
+  end
 
   def initialize(uid)
-    student = {}
-    STDIN.each do |line|
-      (id, name, english, mathematics, science, sciety, japanese) = *line.split("\t")
-
-      student[id] = {
-        "name" => name,
-        "english" => english,
-        "mathematics" => mathematics,
-        "science" => science,
-        "sciety" => sciety,
-        "japanese" => japanese
-      }
-    end
-
-    @all = student
-    @name = student["#{uid}"]["name"]
-    @english = student["#{uid}"]["english"]
-    @mathematics = student["#{uid}"]["mathematics"]
-    @science = student["#{uid}"]["science"]
-    @sciety = student["#{uid}"]["sciety"]
-    @japanese = student["#{uid}"]["japamese"]
+    student      = @@student_of[uid]
+    # @name        = student["name"]
+    # @english     = student["english"]
+    # @mathematics = student["mathematics"]
+    # @science     = student["science"]
+    # @society     = student["society"]
+    # @japanese    = student["japanese"]
+    (@name, @english, @mathematics, @science, @society, @japanese) =
+      *%w(name english mathematics science society japanese).map do |key|
+        student[key]
+      end
   end
 
-  def average(uid)
-    (@english.to_i + @mathematics.to_i + @science.to_i + @sciety.to_i + @japanese.to_i) / 5
+  def points
+    [@english, @mathematics, @science, @society, @japanese]
   end
 
-  def all
-    @all.keys.each do |key|
-      p @all[key]["name"]
+  def sum
+    points.sum
+  end
+
+  def average
+     points.sum / points.size
+  end
+
+  def self.all
+    @@student_of.keys.map do |uid|
+      new(uid)
     end
   end
 end
@@ -39,5 +50,9 @@ end
 student = Student.new("20201101")
 
 p student.name
-p student.average("20201101")
-p student.all
+p student.average
+pp Student.all
+
+Student.all.each do |student|
+  puts student.average
+end
