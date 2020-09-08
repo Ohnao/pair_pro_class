@@ -37,7 +37,7 @@ class Student
   end
 
   def average
-     points.sum / points.size
+    points.sum / points.size
   end
 
   def self.all
