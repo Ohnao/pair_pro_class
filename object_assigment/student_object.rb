@@ -28,6 +28,12 @@ class Student
       end
   end
 
+  def self.all
+    @@student_of.keys.map do |uid|
+      new(uid)
+    end
+  end
+
   def points
     [@english, @mathematics, @science, @society, @japanese]
   end
@@ -40,11 +46,6 @@ class Student
      points.sum / points.size
   end
 
-  def self.all
-    @@student_of.keys.map do |uid|
-      new(uid)
-    end
-  end
 end
 
 student = Student.new("20201101")
