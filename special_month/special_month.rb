@@ -35,7 +35,7 @@ class SpecialMonth
   def each_week
     week_num = (size / 7)
 
-    #to_aメソッドを複数回呼ぶ必要のないように一回呼び出した結果を変数にいれる
+    #to_aメソッドを複数回呼ぶ必要のないように一回呼び出した結果を変数にいれてキャッシュする
     _to_a =  to_a
     week_num.times do |time|
       yield _to_a.slice(time * 7, 7)
