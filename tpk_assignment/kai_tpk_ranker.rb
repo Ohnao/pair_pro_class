@@ -12,7 +12,7 @@ previous_time, previous_rank = 0, 0
 menu.sort_by { |k, v| -v }.to_h.keys.each do |key|
   break if menu[key] <= 2
   current_time = menu[key]
-  current_rank = 
+  current_rank =
     current_time == previous_time ? previous_rank : rank
   puts "#{current_rank}位 #{key} #{current_time}件"
   previous_time, previous_rank = current_time, current_rank
