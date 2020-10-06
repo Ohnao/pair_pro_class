@@ -1,5 +1,5 @@
 #numbers = [111, 222, 333]
-#
+##
 #num = []
 #numbers.each do |number|
 #	result = number.pow(2)
