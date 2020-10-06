@@ -19,8 +19,10 @@ jp_year = (jp_year == "元") ? 1 : jp_year.to_i
 
 year = FIRST_YEAR[jp_era]
 
-if year
-  p "西暦#{year + (jp_year - 1)}年"
-else
+#エラーの処理だけを最初に逃すための処理を挟んでおくような早期リターンの書き方を行う
+if !year
   p "平成か令和の年号を指定してください"
+  exit
 end
+
+p "西暦#{year + (jp_year - 1)}年"
