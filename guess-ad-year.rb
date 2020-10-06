@@ -19,4 +19,8 @@ jp_year = (jp_year == "元") ? 1 : jp_year.to_i
 
 year = FIRST_YEAR[jp_era]
 
-p "西暦#{year + (jp_year - 1)}年"
+if year
+  p "西暦#{year + (jp_year - 1)}年"
+else
+  p "平成か令和の年号を指定してください"
+end
