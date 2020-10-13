@@ -313,7 +313,7 @@ class YearConverterTest < Minitest::Test
     assert !@yc.guess_ad_year("西暦31年"), "西暦(31年)を受け入れてはいけない"
   end
   def test_yc_96
-    assert !@yc.guess_ad_year("西暦2020年"), "西暦(2020年)を受け入れてはいけない"
+    assert !@yc.guess_ad_year("西暦2021年"), "西暦(2021年)を受け入れてはいけない"
   end
   def test_yc_97
     assert !@yc.guess_ad_year("昭和53.0年"), "数値的に正しくても小数点表記は受け入れない"
