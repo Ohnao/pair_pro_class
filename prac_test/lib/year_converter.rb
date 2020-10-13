@@ -29,7 +29,7 @@ class YearConverter
 
     beginning_year = FIRST_YEAR[jp_era]
 
-    #範囲外の一礼を弾く
+    #範囲外の一例を弾く
     ##非対応年号を弾く
     return if !beginning_year
     ##0年を弾く
