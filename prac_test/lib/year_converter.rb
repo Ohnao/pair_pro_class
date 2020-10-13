@@ -20,7 +20,7 @@ class YearConverter
     match = string.match(/^(..)(\d+|元)年$/)
 
     #不正フォーマットを弾く
-    return nil if !match
+    return if !match
 
     jp_era = match[1]
     jp_year = match[2]
@@ -31,13 +31,13 @@ class YearConverter
 
     #範囲外の一礼を弾く
     ##非対応年号を弾く
-    return nil if !beginning_year
+    return if !beginning_year
     ##0年を弾く
-    return nil if jp_year == 0
+    return if jp_year == 0
     ##終了した年号移行の西暦算出を防ぐ
     if jp_era != "令和"
       end_year = END_YEAR[jp_era]
-      return nil if beginning_year + (jp_year - 1) > end_year
+      return if beginning_year + (jp_year - 1) > end_year
     end
 
     return beginning_year + (jp_year - 1)
