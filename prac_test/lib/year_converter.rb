@@ -17,7 +17,7 @@ class YearConverter
   }
 
   def guess_ad_year(string)
-    match = string.match(/^(..)(\d+|元)年$/)
+    match = string.match(/^(..)(\d+|元|[一二三四五六七八九十]*)年$/)
 
     #不正フォーマットを弾く
     return if !match
@@ -25,9 +25,31 @@ class YearConverter
     jp_era = match[1]
     jp_year = match[2]
 
-    jp_year = (jp_year == "元") ? 1 : jp_year.to_i
+    jp_year = (jp_year == "元") ? 1 : jp_year
 
     beginning_year = FIRST_YEAR[jp_era]
+
+    #漢数字を除く
+    ##十が使われているもの
+    if jp_year == "十"
+      jp_year = "10"
+    elsif jp_year.to_i == 0
+      han_num = /[一二三四五六七八九十]/
+      match_num = jp_year.match(/^(#{han_num})(十?#{han_num}|十)/)
+      tens_place = match_num[1]
+      ones_place = match_num[2]
+
+      if tens_place == "十"
+        replace_tens = tens_place.tr("十", "1")
+      else
+        replace_tens = tens_place.tr("一二三四五六七八九", "1-9")
+      end
+      replace_ones = ones_place.tr("十一二三四五六七八九", "0-9")
+      replace_ones = replace_ones.gsub("0", "") if replace_ones.length == 2
+      jp_year = (replace_tens + replace_ones)
+    end
+
+    jp_year = jp_year.to_i
 
     #範囲外の一例を弾く
     ##非対応年号を弾く
@@ -40,6 +62,7 @@ class YearConverter
       return if beginning_year + (jp_year - 1) > end_year
     end
 
+    beginning_year + (jp_year - 1)
     return beginning_year + (jp_year - 1)
   end
 end

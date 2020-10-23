@@ -262,7 +262,7 @@ class YearConverterTest < Minitest::Test
     assert_equal @yc.guess_ad_year("平成三一年"), 2019, "平成三十一年は2019年"
   end
   def test_yc_81
-    assert_equal @yc.guess_ad_year("平成三〇年"), 2018, "平成三十年は2018年"
+    assert_equal @yc.guess_ad_year("平成三〇年"), 2018, "平成三〇年は2018年"
   end
   def test_yc_82
     assert_equal @yc.guess_ad_year("平成二七年"), 2015, "平成二十七年は2015年"
@@ -271,7 +271,7 @@ class YearConverterTest < Minitest::Test
     assert_equal @yc.guess_ad_year("平成二一年"), 2009, "平成二十一年は2009年"
   end
   def test_yc_84
-    assert_equal @yc.guess_ad_year("平成二〇年"), 2008, "平成二十年は2008年"
+    assert_equal @yc.guess_ad_year("平成二〇年"), 2008, "平成二〇年は2008年"
   end
   #is guess_ad_year("平成一一年"), 1999, "平成十一年は1999年"; # 除外
   #is guess_ad_year("平成一〇年"), 1998, "平成十年は1998年"; # 除外
