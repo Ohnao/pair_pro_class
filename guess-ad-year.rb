@@ -14,9 +14,14 @@ input = ARGV[0]
 #jp_year = $2
 
 #matchメソッドは、キャプチャした文字列をmatchオブジェクトとして値を返し、値へのアクセス方法は[]。
-match = input.match(/^(..)(\d+|元)年$/)
+match = input.match(/^(..)(\d+|元|[一二三四五六七八九十]?[一二三四五六七八九十])年$/)
 jp_era = match[1]
 jp_year = match[2]
+p "######"
+p jp_era
+p jp_year
+p "######"
+
 
 jp_year = (jp_year == "元") ? 1 : jp_year.to_i
 
