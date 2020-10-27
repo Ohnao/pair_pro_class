@@ -31,7 +31,10 @@ class YearConverter
 
     #漢数字を除く
     ##十が使われているもの
-    if jp_year == "十"
+    if jp_year == "一" || jp_year == "二" || jp_year == "三" || jp_year == "四" || jp_year == "五" || \
+        jp_year == "六" || jp_year == "七" || jp_year == "八" || jp_year == "九"
+      jp_year = jp_year.tr("一二三四五六七八九", "1-9")
+    elsif jp_year == "十"
       jp_year = "10"
     elsif jp_year.to_i == 0
       han_num = /[〇一二三四五六七八九十]/
