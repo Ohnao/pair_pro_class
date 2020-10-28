@@ -25,6 +25,9 @@ class YearConverter
     jp_era = match[1]
     jp_year = match[2]
 
+    ##0年を弾く
+    return if jp_year == "0"
+
     jp_year = (jp_year == "元") ? 1 : jp_year
 
     beginning_year = FIRST_YEAR[jp_era]
@@ -62,8 +65,6 @@ class YearConverter
     #範囲外の一例を弾く
     ##非対応年号を弾く
     return if !beginning_year
-    ##0年を弾く
-    return if jp_year == 0
     ##終了した年号移行の西暦算出を防ぐ
     if jp_era != "令和"
       end_year = END_YEAR[jp_era]

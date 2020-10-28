@@ -30,6 +30,9 @@ return if !match
 jp_era = match[1]
 jp_year = match[2]
 
+##0年を弾く
+return if jp_year == "0"
+
 jp_year = (jp_year == "元") ? 1 : jp_year
 
 beginning_year = FIRST_YEAR[jp_era]
@@ -63,9 +66,17 @@ end
 
 jp_year = jp_year.to_i
 
-year = FIRST_YEAR[jp_era]
+#範囲外の一例を弾く
+##非対応年号を弾く
+return if !beginning_year
+##終了した年号移行の西暦算出を防ぐ
+if jp_era != "令和"
+  end_year = END_YEAR[jp_era]
+  return if beginning_year + (jp_year - 1) > end_year
+end
 
 #エラーの処理だけを最初に逃すための処理を挟んでおくような早期リターンの書き方を行う
+year = FIRST_YEAR[jp_era]
 if !year
   puts "その年号は対応していません。対応している言語は、#{FIRST_YEAR.keys.join("・")}です。"
   exit
