@@ -24,9 +24,8 @@ class YearConverter
     ##0年を弾く
     return if jp_year == "0"
 
-    jp_year = (jp_year == "元") ? 1 : jp_year
-
     beginning_year = FIRST_YEAR[jp_era]
+    han_num = /[〇一二三四五六七八九十]/
 
     #漢数字を除く
     ##十が使われているもの
@@ -35,8 +34,9 @@ class YearConverter
       jp_year = jp_year.tr("一二三四五六七八九", "1-9")
     elsif jp_year == "十"
       jp_year = "10"
-    elsif jp_year.to_i == 0
-      han_num = /[〇一二三四五六七八九十]/
+    elsif jp_year == "元"
+      jp_year = "1"
+    elsif jp_year.match(han_num)
       match_num = jp_year.match(/^(#{han_num})(十?#{han_num}|十)/)
       tens_place = match_num[1]
       ones_place = match_num[2]
