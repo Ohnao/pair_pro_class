@@ -8,13 +8,16 @@ class YearConverter
     "慶応" => 1865
   }
 
-  END_YEAR = {
-    "平成" => 2019,
-    "昭和" => 1989,
-    "大正" => 1926,
-    "明治" => 1912,
-    "慶応" => 1868
-  }
+  ##END_YEAR = {
+  ##  "平成" => 2019,
+  ##  "昭和" => 1989,
+  ##  "大正" => 1926,
+  ##  "明治" => 1912,
+  ##  "慶応" => 1868
+  ##}
+
+  YEAR_SEQUENCE = %w(慶応 明治 大正 昭和 平成 令和)
+  NEXT_ERA = YEAR_SEQUENCE.map.with_index{ |e, i| [e, YEAR_SEQUENCE[i + 1]]}.to_h
 
   def guess_ad_year(string)
     match = string.match(/^(..)(\d+|元|[〇一二三四五六七八九十]*)年$/)
@@ -67,7 +70,7 @@ class YearConverter
     return if !beginning_year
     ##終了した年号移行の西暦算出を防ぐ
     if jp_era != "令和"
-      end_year = END_YEAR[jp_era]
+      end_year = FIRST_YEAR[NEXT_ERA[jp_era]]
       return if beginning_year + (jp_year - 1) > end_year
     end
 
