@@ -9,10 +9,7 @@ class YearConverter
   }
 
   YEAR_SEQUENCE = %w(慶応 明治 大正 昭和 平成 令和)
-  shift_year = YEAR_SEQUENCE.dup
-  shift_year.shift
-  NEXT_ERA = YEAR_SEQUENCE.zip(shift_year).to_h
-
+  NEXT_ERA = YEAR_SEQUENCE.zip(YEAR_SEQUENCE.slice(1, YEAR_SEQUENCE.length - 1)).to_h
   #NEXT_ERA = YEAR_SEQUENCE.map.with_index{ |e, i| [e, YEAR_SEQUENCE[i + 1]]}.to_h
 
   def guess_ad_year(string)
