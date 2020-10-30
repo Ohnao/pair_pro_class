@@ -8,16 +8,12 @@ class YearConverter
     "慶応" => 1865
   }
 
-  ##END_YEAR = {
-  ##  "平成" => 2019,
-  ##  "昭和" => 1989,
-  ##  "大正" => 1926,
-  ##  "明治" => 1912,
-  ##  "慶応" => 1868
-  ##}
-
   YEAR_SEQUENCE = %w(慶応 明治 大正 昭和 平成 令和)
-  NEXT_ERA = YEAR_SEQUENCE.map.with_index{ |e, i| [e, YEAR_SEQUENCE[i + 1]]}.to_h
+  shift_year = YEAR_SEQUENCE.dup
+  shift_year.shift
+  NEXT_ERA = YEAR_SEQUENCE.zip(shift_year).to_h
+
+  #NEXT_ERA = YEAR_SEQUENCE.map.with_index{ |e, i| [e, YEAR_SEQUENCE[i + 1]]}.to_h
 
   def guess_ad_year(string)
     match = string.match(/^(..)(\d+|元|[〇一二三四五六七八九十]*)年$/)
