@@ -36,7 +36,7 @@ class YearConverter
       jp_year = "10"
     elsif jp_year == "元"
       jp_year = "1"
-    elsif jp_year.match(han_num)
+    elsif jp_year =~ (han_num)
       match_num = jp_year.match(/^(#{han_num})(十?#{han_num}|十)$/)
       tens_place = match_num[1]
       ones_place = match_num[2]
