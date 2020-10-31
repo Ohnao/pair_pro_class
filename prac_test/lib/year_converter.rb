@@ -8,13 +8,9 @@ class YearConverter
     "慶応" => 1865
   }
 
-  END_YEAR = {
-    "平成" => 2019,
-    "昭和" => 1989,
-    "大正" => 1926,
-    "明治" => 1912,
-    "慶応" => 1868
-  }
+  YEAR_SEQUENCE = %w(慶応 明治 大正 昭和 平成 令和)
+  NEXT_ERA = YEAR_SEQUENCE.zip(YEAR_SEQUENCE.slice(1, YEAR_SEQUENCE.length - 1)).to_h
+  #NEXT_ERA = YEAR_SEQUENCE.map.with_index{ |e, i| [e, YEAR_SEQUENCE[i + 1]]}.to_h
 
   def guess_ad_year(string)
     match = string.match(/^(..)(\d+|元|[〇一二三四五六七八九十]*)年$/)
@@ -28,31 +24,27 @@ class YearConverter
     ##0年を弾く
     return if jp_year == "0"
 
-    jp_year = (jp_year == "元") ? 1 : jp_year
-
     beginning_year = FIRST_YEAR[jp_era]
+    han_num = /[〇一二三四五六七八九十]/
 
     #漢数字を除く
     ##十が使われているもの
-    if jp_year == "一" || jp_year == "二" || jp_year == "三" || jp_year == "四" || jp_year == "五" || \
-        jp_year == "六" || jp_year == "七" || jp_year == "八" || jp_year == "九"
+    han_nums = %w(一 二 三 四 五 六 七 八 九)
+    if han_nums.include?(jp_year)
       jp_year = jp_year.tr("一二三四五六七八九", "1-9")
     elsif jp_year == "十"
       jp_year = "10"
-    elsif jp_year.to_i == 0
-      han_num = /[〇一二三四五六七八九十]/
-      match_num = jp_year.match(/^(#{han_num})(十?#{han_num}|十)/)
+    elsif jp_year == "元"
+      jp_year = "1"
+    elsif jp_year =~ (han_num)
+      match_num = jp_year.match(/^(#{han_num})(十?#{han_num}|十)$/)
       tens_place = match_num[1]
       ones_place = match_num[2]
 
-      if tens_place == "十"
-        replace_tens = tens_place.tr("十", "1")
-      else
-        replace_tens = tens_place.tr("一二三四五六七八九", "1-9")
-      end
+      replace_tens = tens_place.tr("一二三四五六七八九十", "1234567891")
 
       if ones_place == "〇"
-        replace_ones = ones_place.gsub("〇", "0")
+        replace_ones = "0"
       else
         replace_ones = ones_place.tr("十一二三四五六七八九", "0-9")
         replace_ones = replace_ones.gsub("0", "") if replace_ones.length == 2
@@ -67,7 +59,7 @@ class YearConverter
     return if !beginning_year
     ##終了した年号移行の西暦算出を防ぐ
     if jp_era != "令和"
-      end_year = END_YEAR[jp_era]
+      end_year = FIRST_YEAR[NEXT_ERA[jp_era]]
       return if beginning_year + (jp_year - 1) > end_year
     end
 
