@@ -41,9 +41,7 @@ class YearConverter
       tens_place = match_num[1]
       ones_place = match_num[2]
 
-      if
-        replace_tens = tens_place.tr("一二三四五六七八九十", "1234567891")
-      end
+      replace_tens = tens_place.tr("一二三四五六七八九十", "1234567891")
 
       if ones_place == "〇"
         replace_ones = "0"
