@@ -345,7 +345,12 @@ class YearConverterTest < Minitest::Test
   def test_yc_105
     assert !@yc.guess_ad_year("平成十十年"), "平成十十年は無い"
   end
+  #〇が最初についた時の対応
   def test_yc_106
     assert !@yc.guess_ad_year("平成〇二年"), "平成〇二年は無い"
+  end
+  #全角数字がきた時の対応
+  def test_yc_107
+    assert_equal @yc.guess_ad_year("昭和１２年"), 1937, "昭和１２年は1937年"
   end
 end
