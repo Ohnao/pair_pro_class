@@ -13,7 +13,7 @@ class YearConverter
   #NEXT_ERA = YEAR_SEQUENCE.map.with_index{ |e, i| [e, YEAR_SEQUENCE[i + 1]]}.to_h
 
   def guess_ad_year(string)
-    match = string.match(/^(..)(\d+|元|[〇一二三四五六七八九十０１２３４５６７８９]*)年$/)
+    match = string.match(/^(..)(\d+|元|[〇一二三四五六七八九十０-９0-9]*)年$/)
 
     #不正フォーマットを弾く
     return if !match
@@ -55,8 +55,8 @@ class YearConverter
       jp_year = (replace_tens + replace_ones)
     end
 
-    #全角数字に対応
-    jp_year = jp_year.tr("０１２３４５６７８９", "0-9") if jp_year =~ /^[０-９]*$/
+    #全角数字・全角半角混在に対応
+    jp_year = jp_year.tr("０１２３４５６７８９", "0-9") if jp_year =~ /^[０-９0-9]*$/
 
     jp_year = jp_year.to_i
 

@@ -353,4 +353,7 @@ class YearConverterTest < Minitest::Test
   def test_yc_107
     assert_equal @yc.guess_ad_year("昭和１２年"), 1937, "昭和１２年は1937年"
   end
+  def test_yc_108
+    assert_equal @yc.guess_ad_year("昭和１2年"), 1937, "昭和１２年は1937年"
+  end
 end
