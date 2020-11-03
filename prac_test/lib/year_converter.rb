@@ -41,6 +41,7 @@ class YearConverter
       tens_place = match_num[1]
       ones_place = match_num[2]
 
+      return if tens_place == "〇"
       return if tens_place == "十" && ones_place == "十"
 
       replace_tens = tens_place.tr("一二三四五六七八九十", "1234567891")

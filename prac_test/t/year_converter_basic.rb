@@ -345,4 +345,7 @@ class YearConverterTest < Minitest::Test
   def test_yc_105
     assert !@yc.guess_ad_year("平成十十年"), "平成十十年は無い"
   end
+  def test_yc_106
+    assert !@yc.guess_ad_year("平成〇二年"), "平成〇二年は無い"
+  end
 end
