@@ -24,7 +24,7 @@ class YearConverter
     jp_year = match[2]
 
     #漢数字と数字が混在している物は弾く
-    return if jp_year.match(/([一二三四五六七八九十])/) && jp_year.match(/([０-９0-9])/)
+    return if jp_year.match(/[一二三四五六七八九十]/) && jp_year.match(/[０-９0-9]/)
 
     ##0年を弾く
     return if jp_year == "0"
@@ -60,7 +60,7 @@ class YearConverter
     end
 
     #全角数字・全角半角混在に対応
-    jp_year = jp_year.tr("０１２３４５６７８９", "0-9") if jp_year =~ /^[０-９0-9]*$/
+    jp_year = jp_year.tr("０-９", "0-9") if jp_year =~ /^[０-９0-9]*$/
 
     jp_year = jp_year.to_i
 
