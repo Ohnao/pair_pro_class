@@ -15,17 +15,21 @@ class YearConverter
   def guess_ad_year(string)
     match = string.match(/^(..)(\d+|元|[〇一二三四五六七八九十０-９0-9]*)年$/)
 
+    han_num = /[〇一二三四五六七八九十]/
+
     #不正フォーマットを弾く
     return if !match
 
     jp_era = match[1]
     jp_year = match[2]
 
+    #漢数字と数字が混在している物は弾く
+    return if jp_year.match(/([一二三四五六七八九十])/) && jp_year.match(/([０-９0-9])/)
+
     ##0年を弾く
     return if jp_year == "0"
 
     beginning_year = FIRST_YEAR[jp_era]
-    han_num = /[〇一二三四五六七八九十]/
 
     #漢数字に対応する
     ##十が使われているもの

@@ -356,4 +356,11 @@ class YearConverterTest < Minitest::Test
   def test_yc_108
     assert_equal @yc.guess_ad_year("昭和1２年"), 1937, "昭和1２年は1937年"
   end
+  #漢数字と数字が混在している時の対応
+  def test_yc_109
+    assert !@yc.guess_ad_year("平成十1年"), "平成十1年は無い"
+  end
+  def test_yc_110
+    assert !@yc.guess_ad_year("平成２十年"), "平成２十年は無い"
+  end
 end
