@@ -5,7 +5,7 @@ if input.nil?
   exit 1
 end
 
-result = input.gsub(/\d*/)do |s|
+result = input.gsub(/\d+/)do |s|
   s.reverse.scan(/\d{1,3}/).join(",").reverse
 end
 
