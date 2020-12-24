@@ -12,8 +12,9 @@ else
   asakai= "朝会をスキップしました"
 end
 
-puts "Content-Type: text/html";
-puts <<END_CONTENT;
+puts "Content-Type: text/html"
+puts ""
+puts <<END_CONTENT
 
 <html>
 <head>
