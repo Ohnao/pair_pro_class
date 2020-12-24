@@ -2,11 +2,13 @@
 
 require 'fileutils'
 
-if File.exist?('/tmp/asakai_skip.txt')
-  File.delete('/tmp/asakai_skip.txt')
+ASAKAI_FILE = '/tmp/asakai_skip.txt'
+
+if File.exist?(ASAKAI_FILE)
+  File.delete(ASAKAI_FILE)
   asakai = "朝会を行いました"
 else
-  FileUtils.touch('/tmp/asakai_skip.txt')
+  FileUtils.touch(ASAKAI_FILE)
   asakai= "朝会をスキップしました"
 end
 
