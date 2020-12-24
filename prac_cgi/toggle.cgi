@@ -22,7 +22,7 @@ puts <<END_CONTENT
 </head>
 <body>
 <h1 style='color: orange'>morning meeting</h1>
-<p> #{asakai} </p>
+<p>#{asakai}</p>
 </body>
 </html>
 
